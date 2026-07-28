@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
 import ProductCard from '../components/ProductCard';
 import '../assets/products.css';
 
@@ -11,8 +11,7 @@ const ProductsPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Backend API is assumed to be running on localhost:8080 or mapped via proxy
-        const response = await axios.get('http://localhost:8080/api/products');
+        const response = await api.get('/products');
         setProducts(response.data);
         setLoading(false);
       } catch (err) {

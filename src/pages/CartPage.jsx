@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../api';
+import { useNavigate } from 'react-router-dom';
 import '../assets/cart.css';
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCart = async () => {
       try {
-        // Fetching for user ID 1 (based on the sample data we inserted)
-        const response = await axios.get('http://localhost:8080/api/cart/1');
+        const userStr = localStorage.getItem('user');
+        if (!userStr) {
+            navigate('/login');
+            return;
+        }
+        const user = JSON.parse(userStr);
+        const response = await api.get(`/cart/${user.id}`);
         setCartItems(response.data);
         setLoading(false);
       } catch (err) {
