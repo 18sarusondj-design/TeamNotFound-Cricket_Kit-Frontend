@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api from '../api';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import '../assets/cart.css';
 
 const CartPage = () => {
@@ -84,8 +84,11 @@ const CartPage = () => {
           ))
         ) : (
           <div style={{ textAlign: 'center', padding: '40px', color: '#94a3b8' }}>
-            <h2>Your cart is empty</h2>
-            <p>Go to the products page to add some gear!</p>
+            <h2 style={{ marginBottom: '1rem' }}>Your cart is empty</h2>
+            <p style={{ marginBottom: '2rem' }}>Go to the products page to add some gear!</p>
+            <Link to="/products" className="btn btn-primary" style={{ maxWidth: '200px', display: 'inline-flex', margin: '0 auto', textDecoration: 'none' }}>
+               Shop Now
+            </Link>
           </div>
         )}
 

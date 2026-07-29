@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { AlertCircle, CheckCircle } from 'lucide-react';
+import { AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
 import api from '../api';
 import AuthLayout from '../components/AuthLayout';
 
@@ -14,9 +14,9 @@ const Login = () => {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(location.state?.message || '');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
-    // Clear history state to prevent message reappearing on reload
     if (location.state?.message) {
       window.history.replaceState({}, document.title);
     }
@@ -89,14 +89,19 @@ const Login = () => {
               <label className="form-label" style={{ marginBottom: 0 }}>Password</label>
               <Link to="/forgot-password" style={{ fontSize: '0.75rem' }}>Forgot password?</Link>
             </div>
-            <input 
-              type="password" 
-              name="password" 
-              className="form-input" 
-              value={formData.password}
-              onChange={handleChange}
-              required 
-            />
+            <div className="password-input-wrapper">
+              <input 
+                type={showPassword ? "text" : "password"} 
+                name="password" 
+                className="form-input" 
+                value={formData.password}
+                onChange={handleChange}
+                required 
+              />
+              <div className="password-toggle-icon" onClick={() => setShowPassword(!showPassword)}>
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              </div>
+            </div>
           </div>
 
           <button type="submit" className="btn btn-primary" disabled={loading}>

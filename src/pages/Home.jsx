@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { LogOut, User, Activity } from 'lucide-react';
+import { LogOut, User, Activity, ShoppingCart } from 'lucide-react';
 
 const Home = () => {
   const navigate = useNavigate();
@@ -31,6 +31,13 @@ const Home = () => {
         </div>
         
         <div className="nav-links">
+          <Link to="/products" className="btn btn-secondary" style={{ padding: '0.5rem 1rem', display: 'flex', gap: '8px', border: 'none' }}>
+             Store
+          </Link>
+          <Link to="/cart" className="btn btn-secondary" style={{ padding: '0.5rem 1rem', display: 'flex', gap: '8px', border: 'none' }}>
+             <ShoppingCart size={18} />
+             Cart
+          </Link>
           <Link to="/profile" className="btn btn-secondary" style={{ padding: '0.5rem 1rem', display: 'flex', gap: '8px' }}>
             <User size={18} />
             {user?.fullName?.split(' ')[0] || 'Profile'}
@@ -54,7 +61,7 @@ const Home = () => {
           <p className="home-subtitle">Your ultimate destination for premium cricket gear and equipment.</p>
           
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', animation: 'fadeIn 2s ease-out' }}>
-             <button className="btn btn-primary" style={{ maxWidth: '200px' }}>Shop Now</button>
+             <Link to="/products" className="btn btn-primary" style={{ maxWidth: '200px', textDecoration: 'none' }}>Shop Now</Link>
              <button className="btn btn-secondary" style={{ maxWidth: '200px' }}>View Offers</button>
           </div>
         </div>
