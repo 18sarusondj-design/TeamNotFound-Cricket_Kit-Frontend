@@ -73,7 +73,7 @@ body {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(255, 255, 255, 0.7); /* light overlay */
+  background: rgba(0, 0, 0, 0.4); /* richer, darker overlay for a vibrant image */
 }
 
 .hero-content {
@@ -91,8 +91,8 @@ body {
   justify-content: center;
   gap: 0.5rem;
   animation: fadeIn 1s ease-out;
-  color: #0f172a;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: white;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
 }
 
 .logo-icon {
@@ -103,7 +103,7 @@ body {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(to right, #1e293b, #4f46e5);
+  background: linear-gradient(to right, #ffffff, #a5b4fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: fadeIn 1.2s ease-out;
@@ -112,6 +112,7 @@ body {
 .hero-subtitle {
   font-size: 1.2rem;
   color: #e2e8f0;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
   animation: fadeIn 1.4s ease-out;
 }
 
@@ -501,10 +502,9 @@ a:hover {
 .home-bg-image {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url('/cricket_kit_bg.png');
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/cricket_kit_bg.png');
   background-size: cover;
   background-position: center;
-  opacity: 0.3;
   z-index: 0;
   animation: zoomBg 20s infinite alternate linear;
 }
@@ -527,19 +527,21 @@ a:hover {
   font-size: 4rem;
   font-weight: 800;
   margin-bottom: 1rem;
-  background: linear-gradient(to right, #0f172a, #4f46e5, #3b82f6);
+  background: linear-gradient(to right, #ffffff, #a5b4fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: slideRight 1s ease-out forwards;
   opacity: 0;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 
 .home-subtitle {
   font-size: 1.5rem;
-  color: #cbd5e1;
+  color: #e2e8f0;
   margin-bottom: 2.5rem;
   animation: slideLeft 1s ease-out 0.2s forwards;
   opacity: 0;
+  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
 /* Cricket Ball Animation */

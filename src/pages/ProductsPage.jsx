@@ -6,6 +6,7 @@ import '../assets/products.css';
 
 const ProductsPage = () => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState(['All']);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -15,25 +16,25 @@ const ProductsPage = () => {
   const ITEMS_PER_PAGE = 16;
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchData = async () => {
       try {
-        const response = await api.get('/products');
-        setProducts(response.data);
+        const [productsRes, categoriesRes] = await Promise.all([
+          api.get('/products'),
+          api.get('/products/categories')
+        ]);
+        setProducts(productsRes.data);
+        const fetchedCats = categoriesRes.data.map(c => c.categoryName);
+        setCategories(['All', ...fetchedCats]);
         setLoading(false);
       } catch (err) {
-        console.error("Error fetching products:", err);
+        console.error("Error fetching data:", err);
         setError("Failed to load products. Please ensure the backend is running.");
         setLoading(false);
       }
     };
 
-    fetchProducts();
+    fetchData();
   }, []);
-
-  const categories = useMemo(() => {
-    const cats = new Set(products.map(p => p.category?.categoryName).filter(Boolean));
-    return ['All', ...Array.from(cats)];
-  }, [products]);
 
   const filteredProducts = useMemo(() => {
     return products.filter(product => {

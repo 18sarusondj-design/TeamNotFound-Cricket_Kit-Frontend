@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Activity, ShieldCheck, Trophy, Star } from 'lucide-react';
+import Navbar from '../components/Navbar';
 
 const Landing = () => {
   return (
@@ -8,17 +9,7 @@ const Landing = () => {
       <div className="landing-bg-gradient"></div>
 
       {/* Navbar */}
-      <nav className="landing-nav">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-          <Activity size={32} color="#6366f1" />
-          <span style={{ fontSize: '1.25rem', fontWeight: 'bold', color: 'white' }}>TeamNotFound</span>
-        </div>
-
-        <div className="landing-nav-actions">
-          <Link to="/login" className="btn btn-secondary nav-btn">Login</Link>
-          <Link to="/register" className="btn btn-primary nav-btn">Get Started</Link>
-        </div>
-      </nav>
+      <Navbar />
 
       {/* Hero Section */}
       <main className="landing-hero">
