@@ -1,17 +1,25 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import api from '../api';
 import ProductCard from '../components/ProductCard';
 import Navbar from '../components/Navbar';
 import '../assets/products.css';
 
 const ProductsPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [categories, setCategories] = useState(['All']);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('All');
+  
+  // Read category from URL, default to 'All'
+  const selectedCategory = searchParams.get('category') || 'All';
+
+  const setSelectedCategory = (category) => {
+    setSearchParams(category === 'All' ? {} : { category });
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 16;
 
@@ -38,7 +46,11 @@ const ProductsPage = () => {
 
   const filteredProducts = useMemo(() => {
     return products.filter(product => {
-      const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase());
+      const term = searchTerm.toLowerCase();
+      const matchesSearch = 
+        product.name.toLowerCase().includes(term) ||
+        (product.description && product.description.toLowerCase().includes(term));
+        
       const matchesCategory = selectedCategory === 'All' || product.category?.categoryName === selectedCategory;
       return matchesSearch && matchesCategory;
     });
@@ -132,7 +144,10 @@ const ProductsPage = () => {
           <button 
             className="page-btn" 
             disabled={currentPage === 1}
-            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+            onClick={() => {
+              setCurrentPage(prev => Math.max(prev - 1, 1));
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
           >
             Previous
           </button>
@@ -142,7 +157,10 @@ const ProductsPage = () => {
           <button 
             className="page-btn" 
             disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+            onClick={() => {
+              setCurrentPage(prev => Math.min(prev + 1, totalPages));
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
           >
             Next
           </button>

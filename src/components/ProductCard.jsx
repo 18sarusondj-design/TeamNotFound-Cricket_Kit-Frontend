@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import api from '../api';
+import { useCart } from '../context/CartContext';
 
 const ProductCard = ({ product }) => {
   const { productId, name, description, price, stock, category, images } = product;
   const navigate = useNavigate();
   const [adding, setAdding] = useState(false);
-  const [added, setAdded] = useState(false);
+  const { cartItems, addToCart, updateQuantity, removeFromCart } = useCart();
   
   const imageUrl = images && images.length > 0 
     ? images[0].imageUrl 
@@ -19,6 +19,10 @@ const ProductCard = ({ product }) => {
   else if (stock < 20) stockClass += 'low';
   else stockClass += 'in';
 
+  // Find if this product is already in the cart
+  const cartItem = cartItems.find(item => item.product.productId === productId);
+  const quantityInCart = cartItem ? cartItem.quantity : 0;
+
   const handleAddToCart = async () => {
     const userStr = localStorage.getItem('user');
     if (!userStr) {
@@ -27,52 +31,180 @@ const ProductCard = ({ product }) => {
     }
     
     setAdding(true);
-    try {
-      const user = JSON.parse(userStr);
-      await api.post('/cart/add', {
-        userId: user.id,
-        productId: productId,
-        quantity: 1
-      });
-      setAdded(true);
-      setTimeout(() => setAdded(false), 2000);
-    } catch (err) {
-      console.error('Failed to add to cart', err);
-      alert('Failed to add item to cart');
-    } finally {
-      setAdding(false);
+    await addToCart(productId, 1);
+    setAdding(false);
+  };
+
+  const handleIncrement = async () => {
+    if (quantityInCart >= stock) return; // Can't add more than stock
+    await updateQuantity(productId, quantityInCart + 1);
+  };
+
+  const handleDecrement = async () => {
+    if (quantityInCart <= 1) {
+      await removeFromCart(productId);
+    } else {
+      await updateQuantity(productId, quantityInCart - 1);
     }
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <div className="product-card premium-card">
-      <div className="product-image-container">
-        <img src={imageUrl} alt={name} className="product-image" />
-        <span className="category-badge">{categoryName}</span>
-      </div>
-      
-      <div className="product-content">
-        <h3 className="product-name">{name}</h3>
-        <p className="product-description">{description}</p>
-        
-        <div className="product-footer">
-          <span className="product-price">₹{price.toLocaleString()}</span>
-          <span className="product-stock">
-            <span className={stockClass}></span>
-            {stock > 0 ? `${stock} in stock` : 'Out of stock'}
-          </span>
+    <>
+      <div className="product-card premium-card">
+        <div 
+          className="product-image-container" 
+          onClick={() => setIsModalOpen(true)}
+          style={{ cursor: 'pointer' }}
+          title="Click to view details"
+        >
+          <img src={imageUrl} alt={name} className="product-image" />
+          <span className="category-badge">{categoryName}</span>
         </div>
         
-        <button 
-          className={`btn btn-primary add-to-cart-btn ${added ? 'added' : ''}`}
-          disabled={stock === 0 || adding}
-          onClick={handleAddToCart}
-          style={{ width: '100%', marginTop: '15px' }}
-        >
-          {adding ? 'Adding...' : added ? '✓ Added' : 'Add to Cart'}
-        </button>
+        <div className="product-content">
+          <h3 className="product-name">{name}</h3>
+          <p className="product-description">{description}</p>
+          
+          <div className="product-footer">
+            <span className="product-price">₹{price.toLocaleString()}</span>
+            <span className="product-stock">
+              <span className={stockClass}></span>
+              {stock > 0 ? `${stock} in stock` : 'Out of stock'}
+            </span>
+          </div>
+          
+          <div style={{ marginTop: '15px' }}>
+            {quantityInCart > 0 ? (
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px solid #e2e8f0', borderRadius: '8px', overflow: 'hidden' }}>
+                <button 
+                  onClick={handleDecrement}
+                  style={{ flex: 1, padding: '10px', background: '#f8fafc', border: 'none', cursor: 'pointer', fontSize: '1.2rem', fontWeight: 'bold', color: '#334155' }}
+                >
+                  -
+                </button>
+                <span style={{ padding: '0 20px', fontWeight: '600', color: '#0f172a' }}>{quantityInCart}</span>
+                <button 
+                  onClick={handleIncrement}
+                  disabled={quantityInCart >= stock}
+                  style={{ flex: 1, padding: '10px', background: '#f8fafc', border: 'none', cursor: quantityInCart >= stock ? 'not-allowed' : 'pointer', fontSize: '1.2rem', fontWeight: 'bold', color: quantityInCart >= stock ? '#94a3b8' : '#334155' }}
+                >
+                  +
+                </button>
+              </div>
+            ) : (
+              <button 
+                className="btn btn-primary add-to-cart-btn"
+                disabled={stock === 0 || adding}
+                onClick={handleAddToCart}
+                style={{ width: '100%' }}
+              >
+                {adding ? 'Adding...' : 'Add to Cart'}
+              </button>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+
+      {isModalOpen && (
+        <div 
+          className="product-modal-overlay" 
+          onClick={() => setIsModalOpen(false)}
+          style={{
+            position: 'fixed',
+            top: 0, left: 0, right: 0, bottom: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.7)',
+            backdropFilter: 'blur(10px)',
+            zIndex: 9999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '20px'
+          }}
+        >
+          <div 
+            className="product-modal-content"
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: '#ffffff',
+              borderRadius: '20px',
+              maxWidth: '800px',
+              width: '100%',
+              display: 'flex',
+              overflow: 'hidden',
+              boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
+              animation: 'fadeIn 0.3s ease-out',
+              position: 'relative'
+            }}
+          >
+            <button 
+              onClick={() => setIsModalOpen(false)}
+              style={{
+                position: 'absolute',
+                top: '15px',
+                right: '15px',
+                background: 'rgba(0,0,0,0.1)',
+                border: 'none',
+                width: '30px',
+                height: '30px',
+                borderRadius: '50%',
+                cursor: 'pointer',
+                fontSize: '1.2rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                zIndex: 10
+              }}
+            >
+              ×
+            </button>
+            <div style={{ flex: 1, backgroundColor: '#f1f5f9' }}>
+              <img src={imageUrl} alt={name} style={{ width: '100%', height: '100%', objectFit: 'cover', minHeight: '400px' }} />
+            </div>
+            <div style={{ flex: 1, padding: '40px', display: 'flex', flexDirection: 'column' }}>
+              <span style={{ color: '#4f46e5', fontWeight: '600', marginBottom: '10px' }}>{categoryName}</span>
+              <h2 style={{ fontSize: '2rem', marginBottom: '15px', color: '#0f172a' }}>{name}</h2>
+              <p style={{ color: '#475569', lineHeight: 1.6, fontSize: '1.1rem', flex: 1 }}>{description}</p>
+              
+              <div style={{ marginTop: '20px' }}>
+                <div style={{ fontSize: '2rem', fontWeight: '800', color: '#10b981', marginBottom: '20px' }}>
+                  ₹{price.toLocaleString()}
+                </div>
+                
+                {quantityInCart > 0 ? (
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px solid #e2e8f0', borderRadius: '12px', overflow: 'hidden' }}>
+                    <button 
+                      onClick={handleDecrement}
+                      style={{ flex: 1, padding: '15px', background: '#f8fafc', border: 'none', cursor: 'pointer', fontSize: '1.5rem', fontWeight: 'bold' }}
+                    >
+                      -
+                    </button>
+                    <span style={{ padding: '0 30px', fontWeight: '600', fontSize: '1.2rem' }}>{quantityInCart}</span>
+                    <button 
+                      onClick={handleIncrement}
+                      disabled={quantityInCart >= stock}
+                      style={{ flex: 1, padding: '15px', background: '#f8fafc', border: 'none', cursor: quantityInCart >= stock ? 'not-allowed' : 'pointer', fontSize: '1.5rem', fontWeight: 'bold' }}
+                    >
+                      +
+                    </button>
+                  </div>
+                ) : (
+                  <button 
+                    className="btn btn-primary"
+                    disabled={stock === 0 || adding}
+                    onClick={handleAddToCart}
+                    style={{ width: '100%', padding: '15px', fontSize: '1.1rem', borderRadius: '12px' }}
+                  >
+                    {adding ? 'Adding...' : 'Add to Cart'}
+                  </button>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 

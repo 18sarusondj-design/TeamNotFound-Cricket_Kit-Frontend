@@ -1,14 +1,23 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Activity, ShoppingCart, User, LogOut } from 'lucide-react';
+import { useCart } from '../context/CartContext';
+import api from '../api';
 import '../index.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem('token');
+  const { cartCount } = useCart();
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await api.post('/auth/logout');
+    } catch (error) {
+      console.error('Logout error:', error);
+    }
     localStorage.removeItem('token');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
@@ -20,12 +29,18 @@ const Navbar = () => {
       </div>
 
       <div className="nav-links-center">
+        {token && <Link to="/home" className="nav-item">Home</Link>}
         <Link to="/products" className="nav-item">Products</Link>
       </div>
 
       <div className="nav-actions">
-        <Link to="/cart" className="cart-icon-wrapper" title="Cart">
+        <Link to="/cart" className="cart-icon-wrapper" title="Cart" style={{ position: 'relative' }}>
           <ShoppingCart size={24} color="#f8fafc" />
+          {cartCount > 0 && (
+            <span className="cart-badge">
+              {cartCount}
+            </span>
+          )}
         </Link>
         
         {token ? (

@@ -930,3 +930,68 @@ a:hover {
   background: white;
   color: #2563eb;
 }
+
+/* Featured Products on Home Page */
+.featured-section {
+  padding: 4rem 2rem;
+  background-color: var(--bg-light, #ffffff);
+  text-align: center;
+  flex: 1;
+}
+
+.featured-header {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 3rem;
+  background: linear-gradient(to right, #0f172a, #2563eb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.featured-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .featured-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.shop-more-container {
+  margin-top: 4rem;
+  margin-bottom: 2rem;
+}
+
+.shop-more-btn {
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+  transition: all 0.3s ease;
+}
+
+.shop-more-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 25px rgba(37, 99, 235, 0.3);
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ef4444;
+  color: white;
+  border-radius: 50%;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.75rem;
+  font-weight: bold;
+  line-height: 1;
+  min-width: 1.2rem;
+  text-align: center;
+}
