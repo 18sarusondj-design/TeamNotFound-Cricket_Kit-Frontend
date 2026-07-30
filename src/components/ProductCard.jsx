@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
-const ProductCard = ({ product }) => {
+const ProductCard = ({ product, index = 0 }) => {
   const { productId, name, description, price, stock, category, images } = product;
   const navigate = useNavigate();
   const [adding, setAdding] = useState(false);
@@ -26,7 +26,7 @@ const ProductCard = ({ product }) => {
   const handleAddToCart = async () => {
     const userStr = localStorage.getItem('user');
     if (!userStr) {
-      navigate('/login');
+      navigate('/login', { state: { returnUrl: '/products' } });
       return;
     }
     
@@ -54,51 +54,38 @@ const ProductCard = ({ product }) => {
     <>
       <div className="product-card premium-card">
         <div 
-          className="product-image-container" 
+          className="product-image-container bg-simple-light" 
           onClick={() => setIsModalOpen(true)}
           style={{ cursor: 'pointer' }}
           title="Click to view details"
         >
           <img src={imageUrl} alt={name} className="product-image" />
-          <span className="category-badge">{categoryName}</span>
+          {/* We remove the category badge from the image as per the new design, it's shown in the text below instead */}
         </div>
         
-        <div className="product-content">
+        <div className="product-content premium-content">
           <h3 className="product-name">{name}</h3>
-          <p className="product-description">{description}</p>
+          <p className="product-category-text">{categoryName}</p>
           
-          <div className="product-footer">
+          <div className="product-price-row">
             <span className="product-price">₹{price.toLocaleString()}</span>
-            <span className="product-stock">
-              <span className={stockClass}></span>
+            <span className="product-stock-text">
               {stock > 0 ? `${stock} in stock` : 'Out of stock'}
             </span>
           </div>
           
-          <div style={{ marginTop: '15px' }}>
+          <div style={{ marginTop: 'auto', paddingTop: '15px' }}>
             {quantityInCart > 0 ? (
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px solid #e2e8f0', borderRadius: '8px', overflow: 'hidden' }}>
-                <button 
-                  onClick={handleDecrement}
-                  style={{ flex: 1, padding: '10px', background: '#f8fafc', border: 'none', cursor: 'pointer', fontSize: '1.2rem', fontWeight: 'bold', color: '#334155' }}
-                >
-                  -
-                </button>
-                <span style={{ padding: '0 20px', fontWeight: '600', color: '#0f172a' }}>{quantityInCart}</span>
-                <button 
-                  onClick={handleIncrement}
-                  disabled={quantityInCart >= stock}
-                  style={{ flex: 1, padding: '10px', background: '#f8fafc', border: 'none', cursor: quantityInCart >= stock ? 'not-allowed' : 'pointer', fontSize: '1.2rem', fontWeight: 'bold', color: quantityInCart >= stock ? '#94a3b8' : '#334155' }}
-                >
-                  +
-                </button>
+              <div className="cart-quantity-selector">
+                <button onClick={handleDecrement} className="cart-qty-btn">-</button>
+                <span className="cart-qty-value">{quantityInCart}</span>
+                <button onClick={handleIncrement} disabled={quantityInCart >= stock} className="cart-qty-btn">+</button>
               </div>
             ) : (
               <button 
-                className="btn btn-primary add-to-cart-btn"
+                className="btn btn-add-cart"
                 disabled={stock === 0 || adding}
                 onClick={handleAddToCart}
-                style={{ width: '100%' }}
               >
                 {adding ? 'Adding...' : 'Add to Cart'}
               </button>

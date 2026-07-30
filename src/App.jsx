@@ -23,11 +23,24 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+// Public Route Component (redirects logged-in users away from landing)
+const PublicRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    return <Navigate to="/home" replace />;
+  }
+  return children;
+};
+
 function App() {
   return (
     <CartProvider>
       <Routes>
-        <Route path="/" element={<Landing />} />
+        <Route path="/" element={
+          <PublicRoute>
+            <Landing />
+          </PublicRoute>
+        } />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/login" element={<Login />} />

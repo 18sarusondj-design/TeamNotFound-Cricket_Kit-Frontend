@@ -2,17 +2,36 @@
 
 :root {
   /* Color Palette - Clean Light Mode */
-  --bg-dark: #f8fafc;
-  --bg-card: rgba(255, 255, 255, 0.8);
+  --bg-dark: #faf9f6; /* Off-white / Cream */
+  --bg-card: rgba(255, 255, 255, 0.95);
   --bg-input: rgba(255, 255, 255, 0.9);
   --text-primary: #0f172a;
   --text-secondary: #475569;
-  --primary: #6366f1;
-  --primary-hover: #4f46e5;
+  --primary: #1e3a8a; /* Nice Royal Blue */
+  --primary-hover: #1e40af;
+  --accent: #ea580c; /* Bright Orange */
+  --accent-hover: #f97316;
   --success: #10b981;
   --error: #ef4444;
-  --border: rgba(0, 0, 0, 0.1);
+  --border: rgba(0, 0, 0, 0.08);
   --glass-border: rgba(0, 0, 0, 0.05);
+}
+
+.nav-content, .header-content {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-content {
+  display: flex;
+  justify-content: center;
 }
 
 * {
@@ -279,7 +298,7 @@ p {
 
 .btn-primary {
   width: 100%;
-  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  background: var(--accent); /* Bright Orange */
   color: white;
   padding: 0.6rem 1.5rem;
   border: none;
@@ -288,14 +307,14 @@ p {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 4px 15px rgba(234, 88, 12, 0.3);
   margin-top: 0.25rem;
 }
 
 .btn-primary:hover {
-  background-color: var(--primary-hover);
+  background-color: var(--accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.23);
+  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
 }
 
 .btn-primary:active {
@@ -304,13 +323,13 @@ p {
 
 .btn-secondary {
   background-color: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--border);
+  color: var(--primary);
+  border: 1px solid var(--primary);
 }
 
 .btn-secondary:hover {
-  color: var(--text-primary);
-  background-color: rgba(255,255,255,0.05);
+  color: white;
+  background-color: var(--primary);
 }
 
 /* Links */
@@ -819,11 +838,8 @@ a:hover {
 
 /* Global Navbar Styles */
 .global-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   padding: 0.75rem 3rem;
-  background: linear-gradient(135deg, #0ea5e9, #2563eb, #3730a3); /* Premium Blue Gradient */
+  background-color: var(--primary);
   border-bottom: none;
   position: sticky;
   top: 0;
@@ -943,9 +959,7 @@ a:hover {
   font-size: 2.5rem;
   font-weight: 800;
   margin-bottom: 3rem;
-  background: linear-gradient(to right, #0f172a, #2563eb);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #0f172a;
 }
 
 .featured-grid {
@@ -972,13 +986,18 @@ a:hover {
   padding: 1rem 3rem;
   font-size: 1.1rem;
   border-radius: 50px;
-  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.2);
+  background-color: var(--accent);
+  color: white;
+  border: none;
+  font-weight: bold;
+  box-shadow: 0 10px 20px rgba(234, 88, 12, 0.2);
   transition: all 0.3s ease;
 }
 
 .shop-more-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 25px rgba(37, 99, 235, 0.3);
+  background-color: var(--accent-hover);
+  box-shadow: 0 15px 25px rgba(234, 88, 12, 0.3);
 }
 
 .cart-badge {

@@ -12,13 +12,19 @@ const ProductsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const [searchTerm, setSearchTerm] = useState('');
+  const searchTerm = searchParams.get('search') || '';
   
   // Read category from URL, default to 'All'
   const selectedCategory = searchParams.get('category') || 'All';
 
   const setSelectedCategory = (category) => {
-    setSearchParams(category === 'All' ? {} : { category });
+    if (category === 'All') {
+      searchParams.delete('category');
+    } else {
+      searchParams.set('category', category);
+    }
+    searchParams.delete('search'); // Clear search when changing categories
+    setSearchParams(searchParams);
   };
   const [currentPage, setCurrentPage] = useState(1);
   const ITEMS_PER_PAGE = 16;
@@ -102,42 +108,31 @@ const ProductsPage = () => {
     <>
       <Navbar />
       <div className="products-container">
-      
-      <div className="controls-container">
-        <div className="search-bar">
-          <input 
-            type="text" 
-            placeholder="Search products by spelling..." 
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
+        <div className="category-filters-premium">
+          {categories.map((cat, index) => {
+             return (
+              <button 
+                key={cat} 
+                className={`filter-pill ${selectedCategory === cat ? 'active' : ''}`}
+                onClick={() => setSelectedCategory(cat)}
+              >
+                {cat}
+              </button>
+            )
+          })}
         </div>
         
-        <div className="category-filters">
-          {categories.map(cat => (
-            <button 
-              key={cat} 
-              className={`filter-btn ${selectedCategory === cat ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(cat)}
-            >
-              {cat}
-            </button>
-          ))}
+        <div className="products-grid premium-grid">
+          {paginatedProducts.length > 0 ? (
+            paginatedProducts.map((product, index) => (
+              <ProductCard key={product.productId} product={product} index={index} />
+            ))
+          ) : (
+            <p style={{ textAlign: 'center', gridColumn: '1 / -1', color: '#94a3b8' }}>
+              No products found matching your criteria.
+            </p>
+          )}
         </div>
-      </div>
-      
-      <div className="products-grid">
-        {paginatedProducts.length > 0 ? (
-          paginatedProducts.map(product => (
-            <ProductCard key={product.productId} product={product} />
-          ))
-        ) : (
-          <p style={{ textAlign: 'center', gridColumn: '1 / -1', color: '#94a3b8' }}>
-            No products found matching your criteria.
-          </p>
-        )}
-      </div>
 
       {totalPages > 1 && (
         <div className="pagination-controls">
