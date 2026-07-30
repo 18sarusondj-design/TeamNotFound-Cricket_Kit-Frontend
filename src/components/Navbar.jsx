@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Activity, ShoppingCart, User } from 'lucide-react';
+import { Activity, ShoppingCart, User, LogOut } from 'lucide-react';
 import '../index.css';
 
 const Navbar = () => {
@@ -24,14 +24,16 @@ const Navbar = () => {
       </div>
 
       <div className="nav-actions">
-        <Link to="/cart" className="cart-icon-wrapper">
+        <Link to="/cart" className="cart-icon-wrapper" title="Cart">
           <ShoppingCart size={24} color="#f8fafc" />
         </Link>
         
         {token ? (
           <div className="auth-buttons">
-            <Link to="/profile" className="icon-btn"><User size={20} /></Link>
-            <button onClick={handleLogout} className="btn btn-secondary nav-btn-small">Logout</button>
+            <Link to="/profile" className="icon-btn" title="Profile"><User size={20} /></Link>
+            <button onClick={handleLogout} className="icon-btn" title="Logout" style={{ border: 'none', cursor: 'pointer' }}>
+              <LogOut size={20} />
+            </button>
           </div>
         ) : (
           <div className="auth-buttons">
