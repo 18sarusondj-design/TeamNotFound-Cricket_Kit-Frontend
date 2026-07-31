@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import api from '../api';
 import ProductCard from '../components/ProductCard';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import '../assets/products.css';
 
 const ProductsPage = () => {
@@ -38,7 +39,12 @@ const ProductsPage = () => {
         ]);
         setProducts(productsRes.data);
         const fetchedCats = categoriesRes.data.map(c => c.categoryName);
-        setCategories(['All', ...fetchedCats]);
+        // Filter out categories related to balls and bats as requested
+        const filteredCats = fetchedCats.filter(c => {
+          const lowerC = c.toLowerCase();
+          return !lowerC.includes('ball') && !lowerC.includes('bat');
+        });
+        setCategories(['All', ...filteredCats]);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -162,6 +168,7 @@ const ProductsPage = () => {
         </div>
       )}
     </div>
+    <Footer />
     </>
   );
 };

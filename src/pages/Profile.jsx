@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { AlertCircle, LogOut, Key, User } from 'lucide-react';
 import api from '../api';
 import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -83,6 +84,7 @@ const Profile = () => {
 
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

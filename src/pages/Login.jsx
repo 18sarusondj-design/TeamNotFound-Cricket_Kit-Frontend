@@ -38,8 +38,8 @@ const Login = () => {
       
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify({ id, email, fullName }));
-      const returnUrl = location.state?.returnUrl || '/products';
-      navigate(returnUrl);
+      
+      navigate('/products');
     } catch (err) {
       if (err.response?.data?.error) {
          setError(err.response.data.error);

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { Trash2, ShoppingBag, ArrowRight, ArrowLeft, Minus, Plus } from 'lucide-react';
+import api from '../api';
 import '../assets/cart.css';
 
 const CartPage = () => {
@@ -19,15 +20,60 @@ const CartPage = () => {
     return total + (item.product.price * item.quantity);
   }, 0);
 
-  const handlePlaceOrder = () => {
+  const handlePlaceOrder = async () => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login', { state: { returnUrl: '/cart' } });
       return;
     }
-    alert("🎉 Your order has been placed successfully! Thank you for shopping with TeamNotFound!");
-    clearCart();
-    navigate('/products');
+
+    try {
+      // 1. Create Order on Backend
+      const { data: orderData } = await api.post('/orders/create', { amount: totalAmount });
+
+      // 2. Initialize Razorpay Checkout
+      const options = {
+        key: 'rzp_test_TJzLyJpVH55How', // Using real test key provided
+        amount: orderData.amount * 100, // paise
+        currency: orderData.currency,
+        name: 'TeamNotFound',
+        description: 'Premium Sports Gear',
+        order_id: orderData.razorpayOrderId,
+        handler: async function (response) {
+          try {
+            // 3. Verify Payment Signature on Backend
+            await api.post('/orders/verify', {
+              razorpayOrderId: response.razorpay_order_id,
+              razorpayPaymentId: response.razorpay_payment_id,
+              razorpaySignature: response.razorpay_signature,
+            });
+            alert("🎉 Payment Successful! Your order has been placed! Thank you for shopping with TeamNotFound!");
+            clearCart();
+            navigate('/products');
+          } catch (err) {
+            console.error("Payment verification failed", err);
+            alert("Payment verification failed! Please contact support.");
+          }
+        },
+        prefill: {
+          name: "Customer",
+          email: "customer@example.com",
+          contact: "9999999999"
+        },
+        theme: {
+          color: "#1e3a8a"
+        }
+      };
+      
+      const rzp = new window.Razorpay(options);
+      rzp.on('payment.failed', function (response){
+        alert("Payment Failed! Reason: " + response.error.description);
+      });
+      rzp.open();
+    } catch (err) {
+      console.error("Error creating order:", err);
+      alert("Failed to initiate payment. " + (err.response?.data?.error || err.message));
+    }
   };
 
   if (loading) {

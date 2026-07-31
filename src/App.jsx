@@ -23,11 +23,10 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// Public Route Component (redirects logged-in users away from landing)
 const PublicRoute = ({ children }) => {
   const token = localStorage.getItem('token');
   if (token) {
-    return <Navigate to="/home" replace />;
+    return <Navigate to="/products" replace />;
   }
   return children;
 };
@@ -51,11 +50,7 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         
         {/* Protected Routes */}
-        <Route path="/home" element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        } />
+        <Route path="/home" element={<Navigate to="/products" replace />} />
         <Route path="/profile" element={
           <ProtectedRoute>
             <Profile />
