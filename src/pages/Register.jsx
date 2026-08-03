@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { AlertCircle, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
+import { toast } from 'sonner';
 import api from '../api';
 import AuthLayout from '../components/AuthLayout';
 
@@ -40,25 +41,28 @@ const Register = () => {
     setError('');
     
     if (formData.password.length < 6 || !/\d/.test(formData.password)) {
-      return setError('Password must be at least 6 characters and contain a number.');
+      toast.error('Password must be at least 6 characters and contain a number.');
+      return;
     }
 
     if (formData.password !== formData.confirmPassword) {
-      return setError('Passwords do not match');
+      toast.error('Passwords do not match');
+      return;
     }
 
     setLoading(true);
     try {
       await api.post('/auth/register', formData);
+      toast.success('Registration successful! Please verify your email.');
       navigate('/verify-email', { state: { email: formData.email } });
     } catch (err) {
       if (err.response?.data?.error) {
-         setError(err.response.data.error);
+         toast.error(err.response.data.error);
       } else if (err.response?.data) {
          const errors = Object.values(err.response.data).join(', ');
-         setError(errors);
+         toast.error(errors);
       } else {
-         setError('Failed to connect to the server');
+         toast.error('Failed to connect to the server');
       }
     } finally {
       setLoading(false);
@@ -70,13 +74,6 @@ const Register = () => {
       <div className="auth-box glass-card">
         <h2>Create Account</h2>
         <p>Join us to experience the best e-commerce platform.</p>
-        
-        {error && (
-          <div className="alert alert-error">
-            <AlertCircle size={18} />
-            <span>{error}</span>
-          </div>
-        )}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { Trash2, ShoppingBag, ArrowRight, ArrowLeft, Minus, Plus } from 'lucide-react';
+import { toast } from 'sonner';
 import api from '../api';
 import '../assets/cart.css';
 
@@ -47,12 +48,12 @@ const CartPage = () => {
               razorpayPaymentId: response.razorpay_payment_id,
               razorpaySignature: response.razorpay_signature,
             });
-            alert("🎉 Payment Successful! Your order has been placed! Thank you for shopping with TeamNotFound!");
+            toast.success("🎉 Payment Successful! Your order has been placed! Thank you for shopping with TeamNotFound!");
             clearCart();
             navigate('/products');
           } catch (err) {
             console.error("Payment verification failed", err);
-            alert("Payment verification failed! Please contact support.");
+            toast.error("Payment verification failed! Please contact support.");
           }
         },
         prefill: {
@@ -67,12 +68,12 @@ const CartPage = () => {
       
       const rzp = new window.Razorpay(options);
       rzp.on('payment.failed', function (response){
-        alert("Payment Failed! Reason: " + response.error.description);
+        toast.error("Payment Failed! Reason: " + response.error.description);
       });
       rzp.open();
     } catch (err) {
       console.error("Error creating order:", err);
-      alert("Failed to initiate payment. " + (err.response?.data?.error || err.message));
+      toast.error("Failed to initiate payment. " + (err.response?.data?.error || err.message));
     }
   };
 

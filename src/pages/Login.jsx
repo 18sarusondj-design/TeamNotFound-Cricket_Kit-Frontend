@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { AlertCircle, CheckCircle, Eye, EyeOff } from 'lucide-react';
+import { Eye, EyeOff } from 'lucide-react';
+import { toast } from 'sonner';
 import api from '../api';
 import AuthLayout from '../components/AuthLayout';
 
@@ -18,6 +19,7 @@ const Login = () => {
 
   useEffect(() => {
     if (location.state?.message) {
+      toast.success(location.state.message);
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);
@@ -39,12 +41,13 @@ const Login = () => {
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify({ id, email, fullName }));
       
+      toast.success('Login successful!');
       navigate('/products');
     } catch (err) {
       if (err.response?.data?.error) {
-         setError(err.response.data.error);
+         toast.error(err.response.data.error);
       } else {
-         setError('Invalid credentials or server error');
+         toast.error('Invalid credentials or server error');
       }
     } finally {
       setLoading(false);
@@ -56,20 +59,6 @@ const Login = () => {
       <div className="auth-box glass-card">
         <h2>Welcome Back</h2>
         <p>Log in to access your account and continue shopping.</p>
-        
-        {success && (
-          <div className="alert alert-success">
-            <CheckCircle size={18} />
-            <span>{success}</span>
-          </div>
-        )}
-
-        {error && (
-          <div className="alert alert-error">
-            <AlertCircle size={18} />
-            <span>{error}</span>
-          </div>
-        )}
 
         <form onSubmit={handleSubmit}>
           <div className="form-group">

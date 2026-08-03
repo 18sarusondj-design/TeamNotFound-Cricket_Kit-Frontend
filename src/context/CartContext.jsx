@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
+import { toast } from 'sonner';
 import api from '../api';
 
 const CartContext = createContext();
@@ -46,9 +47,11 @@ export const CartProvider = ({ children }) => {
         quantity
       });
       await fetchCart();
+      toast.success('Added to cart');
       return true;
     } catch (err) {
       console.error(err);
+      toast.error('Failed to add to cart');
       return false;
     }
   };
@@ -80,9 +83,11 @@ export const CartProvider = ({ children }) => {
     try {
       await api.delete(`/cart/remove/${user.id}/${productId}`);
       await fetchCart();
+      toast.info('Item removed from cart');
       return true;
     } catch (err) {
       console.error(err);
+      toast.error('Failed to remove item');
       return false;
     }
   };
@@ -95,9 +100,11 @@ export const CartProvider = ({ children }) => {
     try {
       await api.delete(`/cart/clear/${user.id}`);
       await fetchCart();
+      toast.success('Cart cleared');
       return true;
     } catch (err) {
       console.error(err);
+      toast.error('Failed to clear cart');
       return false;
     }
   };

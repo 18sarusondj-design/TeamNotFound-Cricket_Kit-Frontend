@@ -31,9 +31,12 @@ const PublicRoute = ({ children }) => {
   return children;
 };
 
+import { Toaster } from 'sonner';
+
 function App() {
   return (
     <CartProvider>
+      <Toaster position="top-right" richColors closeButton />
       <Routes>
         <Route path="/" element={
           <PublicRoute>
