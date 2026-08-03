@@ -44,7 +44,10 @@ const Login = () => {
       toast.success('Login successful!');
       navigate('/products');
     } catch (err) {
-      if (err.response?.data?.error) {
+      if (err.response?.status === 403 && err.response?.data?.status === 'UNVERIFIED') {
+         toast.error(err.response.data.error);
+         navigate('/verify-email', { state: { email: err.response.data.email } });
+      } else if (err.response?.data?.error) {
          toast.error(err.response.data.error);
       } else {
          toast.error('Invalid credentials or server error');
