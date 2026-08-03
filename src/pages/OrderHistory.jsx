@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ShoppingBag, ChevronDown, ChevronUp } from 'lucide-react';
+import { ShoppingBag, ChevronDown, ChevronUp, X } from 'lucide-react';
 import api from '../api';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -109,7 +109,7 @@ const OrderCard = ({ order }) => {
                  onMouseEnter={(e) => e.currentTarget.style.background = '#e2e8f0'}
                  onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
                >
-                 <ChevronUp size={24} style={{ transform: 'rotate(180deg)' }}/>
+                 <X size={24} />
                </button>
             </div>
             
