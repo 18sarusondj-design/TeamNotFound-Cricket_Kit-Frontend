@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { toast } from 'sonner';
@@ -16,10 +16,12 @@ const Login = () => {
   const [success, setSuccess] = useState(location.state?.message || '');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const toastShownRef = useRef(false);
 
   useEffect(() => {
-    if (location.state?.message) {
+    if (location.state?.message && !toastShownRef.current) {
       toast.success(location.state.message);
+      toastShownRef.current = true;
       window.history.replaceState({}, document.title);
     }
   }, [location.state]);

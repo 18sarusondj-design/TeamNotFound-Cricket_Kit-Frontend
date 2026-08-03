@@ -12,6 +12,7 @@ import Home from './pages/Home';
 import Landing from './pages/Landing';
 import ProductsPage from './pages/ProductsPage';
 import CartPage from './pages/CartPage';
+import OrderHistory from './pages/OrderHistory';
 import { CartProvider } from './context/CartContext';
 
 // Protected Route Component
@@ -36,7 +37,7 @@ import { Toaster } from 'sonner';
 function App() {
   return (
     <CartProvider>
-      <Toaster position="top-right" richColors closeButton />
+      <Toaster position="top-right" richColors duration={2000} />
       <Routes>
         <Route path="/" element={
           <PublicRoute>
@@ -57,6 +58,11 @@ function App() {
         <Route path="/profile" element={
           <ProtectedRoute>
             <Profile />
+          </ProtectedRoute>
+        } />
+        <Route path="/orders" element={
+          <ProtectedRoute>
+            <OrderHistory />
           </ProtectedRoute>
         } />
         <Route path="/change-password" element={
