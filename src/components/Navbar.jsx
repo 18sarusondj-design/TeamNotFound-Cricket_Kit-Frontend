@@ -61,7 +61,7 @@ const Navbar = ({ showBack }) => {
         </div>
 
         <div className="nav-links-center" style={{ flex: 1, maxWidth: '600px', margin: '0 20px' }}>
-          {location.pathname !== '/profile' && (
+          {token && location.pathname !== '/profile' && (
             <form onSubmit={handleSearchSubmit} className="search-bar-wrapper" style={{ margin: 0 }}>
               <input 
                 type="text" 
@@ -79,14 +79,16 @@ const Navbar = ({ showBack }) => {
         </div>
 
         <div className="nav-actions">
-          <Link to="/cart" className="cart-icon-wrapper" title="Cart" style={{ position: 'relative' }}>
-            <ShoppingCart size={24} color="#f8fafc" />
-            {cartCount > 0 && (
-              <span className="cart-badge">
-                {cartCount}
-              </span>
-            )}
-          </Link>
+          {token && (
+            <Link to="/cart" className="cart-icon-wrapper" title="Cart" style={{ position: 'relative' }}>
+              <ShoppingCart size={24} color="#f8fafc" />
+              {cartCount > 0 && (
+                <span className="cart-badge">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          )}
           
           {token ? (
             <div className="auth-buttons">
