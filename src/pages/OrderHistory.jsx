@@ -57,6 +57,18 @@ const OrderCard = ({ order }) => {
             }}>
               {order.status}
             </span>
+            {order.status === 'SUCCESS' && (
+              <span style={{ 
+                padding: '0.4rem 1rem', 
+                borderRadius: '999px', 
+                fontSize: '0.85rem', 
+                fontWeight: 'bold',
+                background: order.deliveryStatus === 'COMPLETED' ? '#dcfce7' : '#e0f2fe',
+                color: order.deliveryStatus === 'COMPLETED' ? '#166534' : '#0369a1'
+              }}>
+                {(order.deliveryStatus || 'PENDING').replace(/_/g, ' ')}
+              </span>
+            )}
             <div style={{ color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.9rem' }}>
               View Details
             </div>

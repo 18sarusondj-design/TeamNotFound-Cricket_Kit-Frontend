@@ -13,6 +13,8 @@ import Landing from './pages/Landing';
 import ProductsPage from './pages/ProductsPage';
 import CartPage from './pages/CartPage';
 import OrderHistory from './pages/OrderHistory';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminLogin from './pages/AdminLogin';
 import { CartProvider } from './context/CartContext';
 
 // Protected Route Component
@@ -68,6 +70,12 @@ function App() {
         <Route path="/change-password" element={
           <ProtectedRoute>
             <ChangePassword />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin" element={
+          <ProtectedRoute>
+            <AdminDashboard />
           </ProtectedRoute>
         } />
       </Routes>

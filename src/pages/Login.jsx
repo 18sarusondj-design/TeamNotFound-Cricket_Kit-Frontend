@@ -38,13 +38,17 @@ const Login = () => {
 
     try {
       const response = await api.post('/auth/login', formData);
-      const { token, id, email, fullName } = response.data;
+      const { token, id, email, fullName, role } = response.data;
       
       localStorage.setItem('token', token);
-      localStorage.setItem('user', JSON.stringify({ id, email, fullName }));
+      localStorage.setItem('user', JSON.stringify({ id, email, fullName, role }));
       
       toast.success('Login successful!');
-      navigate('/products');
+      if (role === 'ROLE_ADMIN') {
+        navigate('/admin');
+      } else {
+        navigate('/products');
+      }
     } catch (err) {
       if (err.response?.status === 403 && err.response?.data?.status === 'UNVERIFIED') {
          toast.error(err.response.data.error);

@@ -9,6 +9,8 @@ const Navbar = ({ showBack }) => {
   const navigate = useNavigate();
   const location = useLocation();
   const token = localStorage.getItem('token');
+  const userStr = localStorage.getItem('user');
+  const user = userStr ? JSON.parse(userStr) : null;
   const { cartCount } = useCart();
   
   const [searchTerm, setSearchTerm] = useState('');
@@ -95,7 +97,12 @@ const Navbar = ({ showBack }) => {
               {location.pathname !== '/profile' && (
                 <Link to="/profile" className="icon-btn" title="Profile"><User size={20} /></Link>
               )}
-              <button onClick={handleLogout} className="icon-btn" title="Logout" style={{ border: 'none', cursor: 'pointer' }}>
+              {user && user.role === 'ROLE_ADMIN' && location.pathname !== '/admin' && (
+                <button onClick={() => navigate('/admin')} className="btn btn-primary nav-btn-small" style={{ marginLeft: '10px' }}>
+                  Admin Panel
+                </button>
+              )}
+              <button onClick={handleLogout} className="icon-btn" title="Logout" style={{ border: 'none', cursor: 'pointer', marginLeft: '10px' }}>
                 <LogOut size={20} />
               </button>
             </div>
