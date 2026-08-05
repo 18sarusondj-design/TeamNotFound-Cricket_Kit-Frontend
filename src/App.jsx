@@ -26,6 +26,18 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
+// Admin Only Route Component
+const AdminRoute = ({ children }) => {
+  const token = localStorage.getItem('token');
+  const userStr = localStorage.getItem('user');
+  const user = userStr ? JSON.parse(userStr) : null;
+  
+  if (!token || !user || user.role !== 'ROLE_ADMIN') {
+    return <Navigate to="/login" replace />;
+  }
+  return children;
+};
+
 const PublicRoute = ({ children }) => {
   const token = localStorage.getItem('token');
   if (token) {
@@ -74,9 +86,9 @@ function App() {
         } />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={
-          <ProtectedRoute>
+          <AdminRoute>
             <AdminDashboard />
-          </ProtectedRoute>
+          </AdminRoute>
         } />
       </Routes>
     </CartProvider>

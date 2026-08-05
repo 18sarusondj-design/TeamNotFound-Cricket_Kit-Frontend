@@ -4,22 +4,25 @@ import { Edit, Trash2, Plus, X } from 'lucide-react';
 
 const ProductManagement = () => {
   const [products, setProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('All');
+  const [isNewCategory, setIsNewCategory] = useState(false);
   
   const [formData, setFormData] = useState({
     name: '', description: '', price: '', stock: '', category: '', imageUrl: ''
   });
 
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
+  const fetchData = async () => {
     try {
-      const res = await api.get('/products');
-      setProducts(res.data);
+      const [productsRes, categoriesRes] = await Promise.all([
+        api.get('/products'),
+        api.get('/products/categories')
+      ]);
+      setProducts(productsRes.data);
+      setCategories(categoriesRes.data.map(c => c.categoryName));
     } catch (error) {
       console.error(error);
     } finally {
@@ -27,17 +30,22 @@ const ProductManagement = () => {
     }
   };
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this product?")) return;
     try {
       await api.delete(`/admin/products/${id}`);
-      fetchProducts();
+      fetchData();
     } catch (error) {
       alert("Error deleting product.");
     }
   };
 
   const openModal = (product = null) => {
+    setIsNewCategory(false);
     if (product) {
       setEditingId(product.id);
       setFormData({
@@ -50,7 +58,7 @@ const ProductManagement = () => {
       });
     } else {
       setEditingId(null);
-      setFormData({ name: '', description: '', price: '', stock: '', category: '', imageUrl: '' });
+      setFormData({ name: '', description: '', price: '', stock: '', category: categories[0] || '', imageUrl: '' });
     }
     setIsModalOpen(true);
   };
@@ -64,19 +72,37 @@ const ProductManagement = () => {
         await api.post('/admin/products', formData);
       }
       setIsModalOpen(false);
-      fetchProducts();
+      fetchData();
     } catch (error) {
       alert("Error saving product.");
     }
   };
 
+  const filteredProducts = products.filter(p => 
+    selectedCategory === 'All' || p.category?.categoryName === selectedCategory
+  );
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
         <h2 style={{ fontSize: '24px', fontWeight: 'bold' }}>Product Management</h2>
-        <button onClick={() => openModal()} style={primaryBtnStyle}>
-          <Plus size={18} /> Add Product
-        </button>
+        
+        <div style={{ display: 'flex', gap: '15px' }}>
+          <select 
+            style={inputStyle} 
+            value={selectedCategory} 
+            onChange={(e) => setSelectedCategory(e.target.value)}
+          >
+            <option value="All">All Categories</option>
+            {categories.map(cat => (
+              <option key={cat} value={cat}>{cat}</option>
+            ))}
+          </select>
+
+          <button onClick={() => openModal()} style={primaryBtnStyle}>
+            <Plus size={18} /> Add Product
+          </button>
+        </div>
       </div>
 
       {loading ? <p>Loading products...</p> : (
@@ -94,7 +120,7 @@ const ProductManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map(p => (
+              {filteredProducts.map(p => (
                 <tr key={p.id} style={{ borderBottom: '1px solid #e2e8f0' }}>
                   <td style={tdStyle}>{p.id}</td>
                   <td style={tdStyle}>
@@ -127,7 +153,36 @@ const ProductManagement = () => {
               <textarea style={{...inputStyle, height: '80px'}} required placeholder="Description" value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} />
               <input style={inputStyle} required type="number" placeholder="Price" value={formData.price} onChange={e => setFormData({...formData, price: e.target.value})} />
               <input style={inputStyle} required type="number" placeholder="Stock" value={formData.stock} onChange={e => setFormData({...formData, stock: e.target.value})} />
-              <input style={inputStyle} required placeholder="Category" value={formData.category} onChange={e => setFormData({...formData, category: e.target.value})} />
+              
+              {!isNewCategory ? (
+                <select 
+                  style={inputStyle} 
+                  required 
+                  value={formData.category} 
+                  onChange={e => {
+                    if (e.target.value === 'NEW') setIsNewCategory(true);
+                    else setFormData({...formData, category: e.target.value});
+                  }}
+                >
+                  <option value="" disabled>Select Category</option>
+                  {categories.map(cat => (
+                    <option key={cat} value={cat}>{cat}</option>
+                  ))}
+                  <option value="NEW" style={{ fontWeight: 'bold', color: '#0ea5e9' }}>+ Add New Category</option>
+                </select>
+              ) : (
+                <div style={{ display: 'flex', gap: '10px' }}>
+                  <input 
+                    style={{ ...inputStyle, flex: 1 }} 
+                    required 
+                    placeholder="Enter new category name" 
+                    value={formData.category} 
+                    onChange={e => setFormData({...formData, category: e.target.value})} 
+                  />
+                  <button type="button" onClick={() => {setIsNewCategory(false); setFormData({...formData, category: categories[0] || ''});}} style={{ padding: '0 10px', background: 'none', border: '1px solid #cbd5e1', borderRadius: '6px', cursor: 'pointer' }}>Cancel</button>
+                </div>
+              )}
+
               <input style={inputStyle} placeholder="Image URL" value={formData.imageUrl} onChange={e => setFormData({...formData, imageUrl: e.target.value})} />
               <button type="submit" style={primaryBtnStyle}>{editingId ? "Save Changes" : "Create Product"}</button>
             </form>
