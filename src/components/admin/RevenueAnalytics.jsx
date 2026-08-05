@@ -59,7 +59,7 @@ const RevenueAnalytics = () => {
 
       {/* Header */}
       <div style={{ marginBottom: '28px' }}>
-        <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#0f172a', margin: '0 0 4px' }}>
+        <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#111827', margin: '0 0 4px' }}>
           Business Analytics
         </h2>
         <p style={{ margin: 0, color: '#64748b', fontSize: '14px' }}>
@@ -77,7 +77,7 @@ const RevenueAnalytics = () => {
               padding: '8px 18px',
               borderRadius: '999px',
               border: filterType === key ? 'none' : '1px solid #e2e8f0',
-              background: filterType === key ? 'linear-gradient(135deg,#0ea5e9,#6366f1)' : 'white',
+              background: filterType === key ? '#0066FF' : 'white',
               color: filterType === key ? 'white' : '#475569',
               cursor: 'pointer',
               fontWeight: '600',
@@ -94,7 +94,7 @@ const RevenueAnalytics = () => {
         <div style={{ background: 'white', border: '1px solid #e2e8f0', borderRadius: '14px', padding: '24px', marginBottom: '28px', boxShadow: '0 1px 4px rgba(0,0,0,0.06)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '18px' }}>
             <CalendarRange size={18} color="#0284c7" />
-            <span style={{ fontWeight: '700', fontSize: '15px', color: '#0f172a' }}>Set Date Range</span>
+            <span style={{ fontWeight: '700', fontSize: '15px', color: '#111827' }}>Set Date Range</span>
           </div>
           <form onSubmit={handleCustomSubmit}>
             <div style={{ display: 'flex', gap: '16px', alignItems: 'flex-end', flexWrap: 'wrap' }}>
@@ -106,7 +106,7 @@ const RevenueAnalytics = () => {
                   value={customDates.start}
                   onChange={e => setCustomDates({ ...customDates, start: e.target.value })}
                   required
-                  onFocus={e => e.target.style.borderColor = '#0ea5e9'}
+                  onFocus={e => e.target.style.borderColor = '#0066FF'}
                   onBlur={e => e.target.style.borderColor = '#cbd5e1'}
                 />
               </div>
@@ -119,7 +119,7 @@ const RevenueAnalytics = () => {
                   min={customDates.start}
                   onChange={e => setCustomDates({ ...customDates, end: e.target.value })}
                   required
-                  onFocus={e => e.target.style.borderColor = '#0ea5e9'}
+                  onFocus={e => e.target.style.borderColor = '#0066FF'}
                   onBlur={e => e.target.style.borderColor = '#cbd5e1'}
                 />
               </div>
@@ -148,7 +148,7 @@ const RevenueAnalytics = () => {
             </div>
             <div>
               <p style={{ margin: 0, color: '#64748b', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Revenue</p>
-              <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#0f172a' }}>
+              <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#111827' }}>
                 ₹{Number(analytics.totalRevenue).toLocaleString('en-IN')}
               </h3>
             </div>
@@ -160,7 +160,7 @@ const RevenueAnalytics = () => {
             </div>
             <div>
               <p style={{ margin: 0, color: '#64748b', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Successful Orders</p>
-              <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#0f172a' }}>
+              <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#111827' }}>
                 {analytics.totalOrders}
               </h3>
             </div>
@@ -173,7 +173,7 @@ const RevenueAnalytics = () => {
               </div>
               <div>
                 <p style={{ margin: 0, color: '#64748b', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Avg. Order Value</p>
-                <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#0f172a' }}>
+                <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#111827' }}>
                   ₹{Math.round(analytics.totalRevenue / analytics.totalOrders).toLocaleString('en-IN')}
                 </h3>
               </div>
@@ -188,7 +188,7 @@ const RevenueAnalytics = () => {
 
 const labelStyle = { fontSize: '13px', fontWeight: '600', color: '#475569' };
 const dateInput  = { padding: '10px 14px', border: '1px solid #cbd5e1', borderRadius: '8px', fontSize: '14px', outline: 'none', transition: 'border-color 0.2s', fontFamily: 'inherit', width: '100%', boxSizing: 'border-box' };
-const applyBtn   = { display: 'flex', alignItems: 'center', gap: '8px', padding: '11px 22px', background: 'linear-gradient(135deg,#0ea5e9,#6366f1)', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '700', fontSize: '14px', cursor: 'pointer', transition: 'opacity 0.2s', whiteSpace: 'nowrap' };
+const applyBtn   = { display: 'flex', alignItems: 'center', gap: '8px', padding: '11px 22px', background: '#0066FF', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '700', fontSize: '14px', cursor: 'pointer', transition: 'opacity 0.2s', whiteSpace: 'nowrap' };
 const cardStyle  = { backgroundColor: 'white', padding: '28px', borderRadius: '16px', display: 'flex', alignItems: 'center', gap: '20px', boxShadow: '0 4px 12px rgba(0,0,0,0.07)', border: '1px solid #f1f5f9' };
 const iconBox    = (bg, color) => ({ backgroundColor: bg, color, padding: '18px', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 });
 

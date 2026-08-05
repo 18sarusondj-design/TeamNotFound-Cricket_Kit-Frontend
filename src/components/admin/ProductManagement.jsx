@@ -131,7 +131,7 @@ const ProductManagement = () => {
                   <td style={tdStyle}>₹{p.price}</td>
                   <td style={tdStyle}>{p.stock}</td>
                   <td style={tdStyle}>
-                    <button onClick={() => openModal(p)} style={{ ...iconBtnStyle, color: '#0284c7' }}><Edit size={18} /></button>
+                    <button onClick={() => openModal(p)} style={{ ...iconBtnStyle, color: '#0066FF' }}><Edit size={18} /></button>
                     <button onClick={() => handleDelete(p.id)} style={{ ...iconBtnStyle, color: '#ef4444' }}><Trash2 size={18} /></button>
                   </td>
                 </tr>
@@ -168,7 +168,7 @@ const ProductManagement = () => {
                   {categories.map(cat => (
                     <option key={cat} value={cat}>{cat}</option>
                   ))}
-                  <option value="NEW" style={{ fontWeight: 'bold', color: '#0ea5e9' }}>+ Add New Category</option>
+                  <option value="NEW" style={{ fontWeight: 'bold', color: '#0066FF' }}>+ Add New Category</option>
                 </select>
               ) : (
                 <div style={{ display: 'flex', gap: '10px' }}>
@@ -197,7 +197,7 @@ const tableContainerStyle = { background: 'white', borderRadius: '8px', boxShado
 const thStyle = { padding: '12px 15px', color: '#64748b', fontWeight: '600', fontSize: '14px' };
 const tdStyle = { padding: '12px 15px', fontSize: '14px', color: '#1e293b' };
 const iconBtnStyle = { background: 'none', border: 'none', cursor: 'pointer', padding: '5px' };
-const primaryBtnStyle = { display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', backgroundColor: '#0ea5e9', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: '500' };
+const primaryBtnStyle = { display: 'flex', alignItems: 'center', gap: '8px', padding: '10px 16px', backgroundColor: '#0066FF', color: 'white', border: 'none', borderRadius: '6px', cursor: 'pointer', fontWeight: '500' };
 const modalOverlayStyle = { position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, backgroundColor: 'rgba(0,0,0,0.5)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000 };
 const modalStyle = { backgroundColor: 'white', padding: '30px', borderRadius: '12px', width: '400px', maxWidth: '90%' };
 const inputStyle = { padding: '10px 15px', border: '1px solid #cbd5e1', borderRadius: '6px', fontSize: '14px', fontFamily: 'inherit' };

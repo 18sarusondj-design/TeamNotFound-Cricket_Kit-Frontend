@@ -40,13 +40,6 @@ const AdminLogin = () => {
 
   return (
     <div style={styles.page}>
-      {/* Animated background grid */}
-      <div style={styles.gridBg} />
-
-      {/* Glow orbs */}
-      <div style={{ ...styles.orb, top: '-150px', left: '-150px', background: 'radial-gradient(circle, rgba(14,165,233,0.3) 0%, transparent 70%)' }} />
-      <div style={{ ...styles.orb, bottom: '-150px', right: '-150px', background: 'radial-gradient(circle, rgba(99,102,241,0.3) 0%, transparent 70%)' }} />
-
       <div style={styles.card}>
         {/* Header */}
         <div style={styles.header}>
@@ -74,8 +67,8 @@ const AdminLogin = () => {
               onChange={(e) => setFormData({ ...formData, identifier: e.target.value })}
               style={styles.input}
               required
-              onFocus={(e) => { e.target.style.borderColor = '#0ea5e9'; e.target.style.boxShadow = '0 0 0 3px rgba(14,165,233,0.15)'; }}
-              onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.1)'; e.target.style.boxShadow = 'none'; }}
+              onFocus={(e) => { e.target.style.borderColor = '#0066FF'; e.target.style.boxShadow = '0 0 0 3px rgba(0, 102, 255, 0.15)'; }}
+              onBlur={(e) => { e.target.style.borderColor = '#cbd5e1'; e.target.style.boxShadow = 'none'; }}
             />
           </div>
 
@@ -92,8 +85,8 @@ const AdminLogin = () => {
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 style={{ ...styles.input, paddingRight: '48px' }}
                 required
-                onFocus={(e) => { e.target.style.borderColor = '#0ea5e9'; e.target.style.boxShadow = '0 0 0 3px rgba(14,165,233,0.15)'; }}
-                onBlur={(e) => { e.target.style.borderColor = 'rgba(255,255,255,0.1)'; e.target.style.boxShadow = 'none'; }}
+                onFocus={(e) => { e.target.style.borderColor = '#0066FF'; e.target.style.boxShadow = '0 0 0 3px rgba(0, 102, 255, 0.15)'; }}
+                onBlur={(e) => { e.target.style.borderColor = '#cbd5e1'; e.target.style.boxShadow = 'none'; }}
               />
               <button
                 type="button"
@@ -136,38 +129,23 @@ const AdminLogin = () => {
 const styles = {
   page: {
     minHeight: '100vh',
-    backgroundColor: '#0a0f1e',
+    backgroundColor: '#f8fafc',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     padding: '20px',
     position: 'relative',
-    overflow: 'hidden',
     fontFamily: "'Inter', 'Segoe UI', sans-serif",
-  },
-  gridBg: {
-    position: 'absolute',
-    inset: 0,
-    backgroundImage: `linear-gradient(rgba(14,165,233,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(14,165,233,0.05) 1px, transparent 1px)`,
-    backgroundSize: '40px 40px',
-  },
-  orb: {
-    position: 'absolute',
-    width: '500px',
-    height: '500px',
-    borderRadius: '50%',
-    pointerEvents: 'none',
   },
   card: {
     position: 'relative',
-    backgroundColor: 'rgba(15, 23, 42, 0.9)',
-    border: '1px solid rgba(255,255,255,0.08)',
+    backgroundColor: '#ffffff',
+    border: '1px solid #e2e8f0',
     borderRadius: '20px',
     padding: '48px 40px',
     width: '100%',
     maxWidth: '440px',
-    backdropFilter: 'blur(20px)',
-    boxShadow: '0 25px 50px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05)',
+    boxShadow: '0 10px 25px rgba(0,0,0,0.05)',
   },
   header: {
     textAlign: 'center',
@@ -177,29 +155,29 @@ const styles = {
     width: '72px',
     height: '72px',
     borderRadius: '20px',
-    background: 'linear-gradient(135deg, #0ea5e9, #6366f1)',
+    background: '#0066FF',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
     margin: '0 auto 16px auto',
-    boxShadow: '0 8px 24px rgba(14,165,233,0.4)',
+    boxShadow: '0 8px 24px rgba(0, 102, 255, 0.3)',
   },
   title: {
     margin: '0 0 6px 0',
     fontSize: '28px',
     fontWeight: '800',
-    color: 'white',
+    color: '#111827',
     letterSpacing: '-0.5px',
   },
   subtitle: {
     margin: 0,
     fontSize: '13px',
-    color: '#64748b',
+    color: '#6b7280',
     letterSpacing: '0.3px',
   },
   divider: {
     height: '1px',
-    background: 'rgba(255,255,255,0.06)',
+    background: '#e2e8f0',
     marginBottom: '28px',
   },
   form: {
@@ -213,18 +191,18 @@ const styles = {
     gap: '8px',
   },
   label: {
-    color: '#94a3b8',
+    color: '#4b5563',
     fontSize: '13px',
-    fontWeight: '500',
+    fontWeight: '600',
     letterSpacing: '0.3px',
   },
   input: {
     width: '100%',
     padding: '13px 16px',
-    background: 'rgba(255,255,255,0.04)',
-    border: '1px solid rgba(255,255,255,0.1)',
+    background: '#f8fafc',
+    border: '1px solid #cbd5e1',
     borderRadius: '10px',
-    color: 'white',
+    color: '#111827',
     fontSize: '15px',
     outline: 'none',
     transition: 'border-color 0.2s, box-shadow 0.2s',
@@ -244,7 +222,7 @@ const styles = {
   },
   submitBtn: {
     padding: '14px',
-    background: 'linear-gradient(135deg, #0ea5e9, #6366f1)',
+    background: '#0066FF',
     color: 'white',
     border: 'none',
     borderRadius: '10px',
@@ -252,7 +230,7 @@ const styles = {
     fontWeight: '600',
     cursor: 'pointer',
     transition: 'transform 0.2s, box-shadow 0.2s',
-    boxShadow: '0 4px 15px rgba(14,165,233,0.3)',
+    boxShadow: '0 4px 15px rgba(0, 102, 255, 0.3)',
     marginTop: '4px',
     fontFamily: 'inherit',
   },
@@ -268,7 +246,7 @@ const styles = {
   footer: {
     textAlign: 'center',
     marginTop: '28px',
-    color: '#475569',
+    color: '#64748b',
     fontSize: '12px',
     lineHeight: '1.5',
   },

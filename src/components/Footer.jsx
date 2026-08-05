@@ -4,13 +4,13 @@ import '../index.css';
 
 const Footer = () => {
   return (
-    <footer style={{ backgroundColor: '#0f172a', color: 'white', padding: '3rem 2rem 1.5rem', marginTop: 'auto' }}>
+    <footer style={{ backgroundColor: '#111827', color: 'white', padding: '3rem 2rem 1.5rem', marginTop: 'auto' }}>
       <div className="header-content" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
         
         {/* Brand Section */}
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '1rem' }}>
-            <Activity size={32} color="#38bdf8" />
+            <Activity size={32} color="#0066FF" />
             <div style={{ fontSize: '1.5rem', fontWeight: 'bold', color: 'white', margin: 0 }}>
               TeamNotFound
             </div>
@@ -25,15 +25,15 @@ const Footer = () => {
           <div style={{ fontSize: '1.2rem', fontWeight: '600', marginBottom: '1rem', color: '#f8fafc' }}>Contact Us</div>
           <ul style={{ listStyle: 'none', padding: 0, margin: 0, color: '#94a3b8', display: 'flex', flexDirection: 'column', gap: '10px' }}>
             <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <MapPin size={18} color="#ea580c" />
+              <MapPin size={18} color="#0066FF" />
               123 Sports Avenue, Cricket City, 456789
             </li>
             <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Phone size={18} color="#ea580c" />
+              <Phone size={18} color="#0066FF" />
               +91 98765 43210
             </li>
             <li style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <Mail size={18} color="#ea580c" />
+              <Mail size={18} color="#0066FF" />
               support@teamnotfound.com
             </li>
           </ul>

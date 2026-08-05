@@ -101,10 +101,10 @@ const CartPage = () => {
       </div>
 
       {cartItems.length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '60px 20px', background: 'rgba(30, 41, 59, 0.5)', borderRadius: '20px', maxWidth: '800px', margin: '0 auto' }}>
-          <ShoppingBag size={64} color="#94a3b8" style={{ marginBottom: '20px' }} />
-          <h2 style={{ marginBottom: '1rem', color: '#f8fafc' }}>Your cart is empty</h2>
-          <p style={{ marginBottom: '2rem', color: '#94a3b8' }}>Looks like you haven't added any premium gear yet.</p>
+        <div style={{ textAlign: 'center', padding: '60px 20px', background: '#ffffff', border: '1px solid #e2e8f0', boxShadow: '0 4px 15px rgba(0, 0, 0, 0.05)', borderRadius: '20px', maxWidth: '800px', margin: '0 auto' }}>
+          <ShoppingBag size={64} color="#0066FF" style={{ marginBottom: '20px' }} />
+          <h2 style={{ marginBottom: '1rem', color: '#111827' }}>Your cart is empty</h2>
+          <p style={{ marginBottom: '2rem', color: '#4b5563' }}>Looks like you haven't added any premium gear yet.</p>
           <Link to="/products" className="btn btn-primary" style={{ padding: '15px 40px', display: 'inline-flex', alignItems: 'center', gap: '10px', textDecoration: 'none', borderRadius: '30px', fontSize: '1.1rem' }}>
              Start Shopping <ArrowRight size={20} />
           </Link>
@@ -117,7 +117,7 @@ const CartPage = () => {
               <button 
                 onClick={clearCart}
                 className="action-btn-outline"
-                style={{ padding: '8px 15px', color: '#0d9488', borderColor: '#0d9488' }}
+                style={{ padding: '8px 15px', color: '#0066FF', borderColor: '#0066FF' }}
               >
                 <Trash2 size={16} style={{ marginRight: '5px' }} /> Clear Cart
               </button>
@@ -167,7 +167,7 @@ const CartPage = () => {
                     >
                       <Trash2 size={20} />
                     </button>
-                    <span className="cart-item-total" style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#0d9488' }}>
+                    <span className="cart-item-total" style={{ fontSize: '1.2rem', fontWeight: 'bold', color: '#0066FF' }}>
                       ₹{(item.product.price * item.quantity).toLocaleString()}
                     </span>
                   </div>

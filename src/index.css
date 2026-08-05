@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 :root {
-  /* Color Palette - Clean Light Mode */
-  --bg-dark: #faf9f6; /* Off-white / Cream */
-  --bg-card: rgba(255, 255, 255, 0.95);
-  --bg-input: rgba(255, 255, 255, 0.9);
-  --text-primary: #0f172a;
-  --text-secondary: #475569;
-  --primary: #1e3a8a; /* Nice Royal Blue */
-  --primary-hover: #1e40af;
-  --accent: #ea580c; /* Bright Orange */
-  --accent-hover: #f97316;
+  /* Color Palette - Electric Blue Theme */
+  --bg-dark: #ffffff; /* Pure white */
+  --bg-card: #ffffff;
+  --bg-input: #f8fafc;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --primary: #0066FF; /* Electric Blue */
+  --primary-hover: #0052cc;
+  --accent: #0066FF; /* Electric Blue */
+  --accent-hover: #0052cc;
   --success: #10b981;
   --error: #ef4444;
-  --border: rgba(0, 0, 0, 0.08);
+  --border: #e5e7eb;
   --glass-border: rgba(0, 0, 0, 0.05);
 }
 
@@ -92,12 +92,13 @@ body {
   content: '';
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0, 0, 0, 0.4); /* richer, darker overlay for a vibrant image */
+  background: rgba(0, 0, 0, 0.65); /* Dark overlay so image is clear */
 }
 
 .hero-content {
   position: relative;
   text-align: center;
+  z-index: 1;
 }
 
 .hero-logo-text {
@@ -110,8 +111,8 @@ body {
   justify-content: center;
   gap: 0.5rem;
   animation: fadeIn 1s ease-out;
-  color: white;
-  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
+  color: var(--primary);
+  text-shadow: none;
 }
 
 .logo-icon {
@@ -122,16 +123,14 @@ body {
   font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
-  background: linear-gradient(to right, #ffffff, #a5b4fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #ffffff;
   animation: fadeIn 1.2s ease-out;
 }
 
 .hero-subtitle {
   font-size: 1.2rem;
   color: #e2e8f0;
-  text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   animation: fadeIn 1.4s ease-out;
 }
 
@@ -218,9 +217,7 @@ h1, h2, h3 {
   font-weight: 600;
   margin-bottom: 1.5rem;
   text-align: center;
-  background: linear-gradient(to right, #0f172a, #4f46e5);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #111827;
 }
 
 p {
@@ -298,7 +295,7 @@ p {
 
 .btn-primary {
   width: 100%;
-  background: var(--accent); /* Bright Orange */
+  background: var(--primary);
   color: white;
   padding: 0.6rem 1.5rem;
   border: none;
@@ -307,14 +304,14 @@ p {
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(234, 88, 12, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
   margin-top: 0.25rem;
 }
 
 .btn-primary:hover {
-  background-color: var(--accent-hover);
+  background-color: var(--primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(234, 88, 12, 0.4);
+  box-shadow: 0 6px 20px rgba(0, 102, 255, 0.4);
 }
 
 .btn-primary:active {

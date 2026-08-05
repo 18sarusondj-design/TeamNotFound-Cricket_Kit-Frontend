@@ -15,7 +15,10 @@ import CartPage from './pages/CartPage';
 import OrderHistory from './pages/OrderHistory';
 import AdminDashboard from './pages/AdminDashboard';
 import AdminLogin from './pages/AdminLogin';
+import SuperAdminLogin from './pages/SuperAdminLogin';
+import SuperAdminDashboard from './pages/SuperAdminDashboard';
 import { CartProvider } from './context/CartContext';
+import SuperAdminRoute from './components/SuperAdminRoute';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -89,6 +92,12 @@ function App() {
           <AdminRoute>
             <AdminDashboard />
           </AdminRoute>
+        } />
+        <Route path="/superadmin/login" element={<SuperAdminLogin />} />
+        <Route path="/superadmin" element={
+          <SuperAdminRoute>
+            <SuperAdminDashboard />
+          </SuperAdminRoute>
         } />
       </Routes>
     </CartProvider>

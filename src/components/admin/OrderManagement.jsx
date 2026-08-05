@@ -42,7 +42,7 @@ const OrderDetailModal = ({ order, onClose }) => (
       {/* Header */}
       <div style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-start', marginBottom:'20px' }}>
         <div>
-          <h3 style={{ margin:'0 0 4px', fontSize:'18px', fontWeight:'700', color:'#0f172a' }}>Order Details</h3>
+          <h3 style={{ margin:'0 0 4px', fontSize:'18px', fontWeight:'700', color:'#111827' }}>Order Details</h3>
           <p style={{ margin:0, fontSize:'13px', color:'#64748b' }}>ID: {order.orderId}</p>
         </div>
         <button onClick={onClose} style={{ background:'none', border:'none', cursor:'pointer', color:'#64748b', padding:'4px' }}>
@@ -52,7 +52,7 @@ const OrderDetailModal = ({ order, onClose }) => (
 
       {/* Customer Info */}
       <div style={{ backgroundColor:'#f8fafc', borderRadius:'10px', padding:'14px 16px', marginBottom:'18px' }}>
-        <p style={{ margin:'0 0 3px', fontWeight:'600', color:'#0f172a' }}>{order.user?.fullName}</p>
+        <p style={{ margin:'0 0 3px', fontWeight:'600', color:'#111827' }}>{order.user?.fullName}</p>
         <p style={{ margin:0, fontSize:'13px', color:'#64748b' }}>{order.user?.email}</p>
         <p style={{ margin:'6px 0 0', fontSize:'13px', color:'#64748b' }}>
           📅 {new Date(order.createdAt).toLocaleString()}
@@ -69,16 +69,16 @@ const OrderDetailModal = ({ order, onClose }) => (
               : <div style={{ width:'48px', height:'48px', borderRadius:'6px', background:'#f1f5f9', display:'flex', alignItems:'center', justifyContent:'center' }}><ShoppingBag size={18} color="#94a3b8" /></div>
             }
             <div style={{ flex:1 }}>
-              <p style={{ margin:'0 0 2px', fontWeight:'600', fontSize:'14px', color:'#0f172a' }}>{item.product?.name}</p>
+              <p style={{ margin:'0 0 2px', fontWeight:'600', fontSize:'14px', color:'#111827' }}>{item.product?.name}</p>
               <p style={{ margin:0, fontSize:'13px', color:'#64748b' }}>Qty: {item.quantity} × ₹{item.pricePerUnit}</p>
             </div>
-            <p style={{ margin:0, fontWeight:'700', fontSize:'14px', color:'#0f172a' }}>₹{item.totalPrice}</p>
+            <p style={{ margin:0, fontWeight:'700', fontSize:'14px', color:'#111827' }}>₹{item.totalPrice}</p>
           </div>
         ))}
       </div>
 
       {/* Total */}
-      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 16px', backgroundColor:'#0f172a', borderRadius:'10px' }}>
+      <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'14px 16px', backgroundColor:'#111827', borderRadius:'10px' }}>
         <span style={{ color:'white', fontWeight:'600' }}>Total Amount</span>
         <span style={{ color:'white', fontWeight:'800', fontSize:'18px' }}>₹{order.totalAmount}</span>
       </div>
@@ -111,7 +111,7 @@ const OrderManagement = () => {
     };
 
     toast.custom((toastId) => (
-      <div style={{ background:'#0f172a', borderRadius:'10px', padding:'10px 14px', boxShadow:'0 8px 24px rgba(0,0,0,0.2)', display:'flex', alignItems:'center', gap:'12px', fontFamily:"'Inter','Segoe UI',sans-serif", whiteSpace:'nowrap' }}>
+      <div style={{ background:'#111827', borderRadius:'10px', padding:'10px 14px', boxShadow:'0 8px 24px rgba(0,0,0,0.2)', display:'flex', alignItems:'center', gap:'12px', fontFamily:"'Inter','Segoe UI',sans-serif", whiteSpace:'nowrap' }}>
         <span style={{ fontSize:'13px', color:'#e2e8f0', fontWeight:'500' }}>
           {label} — <strong style={{ color:'white' }}>{order.user?.fullName}</strong>?
         </span>
@@ -128,7 +128,7 @@ const OrderManagement = () => {
               fetchOrders();
             } catch { toast.error('Failed to update status.'); }
           }}
-          style={{ padding:'5px 12px', border:'none', borderRadius:'6px', background:'linear-gradient(135deg,#0ea5e9,#6366f1)', color:'white', fontWeight:'700', fontSize:'12px', cursor:'pointer' }}
+          style={{ padding:'5px 12px', border:'none', borderRadius:'6px', background: '#0066FF', color:'white', fontWeight:'700', fontSize:'12px', cursor:'pointer' }}
         >✓ Confirm</button>
       </div>
     ), { duration: Infinity });
@@ -139,7 +139,7 @@ const OrderManagement = () => {
 
   return (
     <div>
-      <h2 style={{ fontSize:'24px', fontWeight:'800', marginBottom:'6px', color:'#0f172a' }}>Order Management</h2>
+      <h2 style={{ fontSize:'24px', fontWeight:'800', marginBottom:'6px', color:'#111827' }}>Order Management</h2>
       <p style={{ color:'#64748b', marginBottom:'24px', marginTop:0 }}>{successOrders.length} paid order(s) to process</p>
 
       {loading ? <p>Loading orders...</p> : (
@@ -160,10 +160,10 @@ const OrderManagement = () => {
               <div key={order.orderId} style={cardStyle}>
                 {/* Left: Customer */}
                 <div style={{ flex: 1 }}>
-                  <p style={{ margin:'0 0 2px', fontWeight:'700', fontSize:'16px', color:'#0f172a' }}>
+                  <p style={{ margin:'0 0 2px', fontWeight:'700', fontSize:'16px', color:'#111827' }}>
                     {order.user?.fullName}
                   </p>
-                  <p style={{ margin:'0 0 2px', fontSize:'13px', color:'#0284c7' }}>
+                  <p style={{ margin:'0 0 2px', fontSize:'13px', color:'#0066FF' }}>
                     {order.user?.email}
                   </p>
                   <p style={{ margin:0, fontSize:'13px', color:'#64748b' }}>
@@ -179,7 +179,7 @@ const OrderManagement = () => {
                   <button
                     onClick={() => setSelectedOrder(order)}
                     style={viewBtn}
-                    onMouseEnter={e => e.currentTarget.style.borderColor = '#0284c7'}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = '#0066FF'}
                     onMouseLeave={e => e.currentTarget.style.borderColor = '#cbd5e1'}
                   >
                     View Details
@@ -243,7 +243,7 @@ const confirmBtn = {
   padding: '8px 16px',
   border: 'none',
   borderRadius: '8px',
-  background: 'linear-gradient(135deg, #0ea5e9, #6366f1)',
+  background: '#0066FF',
   color: 'white',
   cursor: 'pointer',
   fontSize: '13px',

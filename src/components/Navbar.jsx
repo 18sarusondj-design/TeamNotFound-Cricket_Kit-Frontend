@@ -57,13 +57,13 @@ const Navbar = ({ showBack }) => {
             </button>
           )}
           <div onClick={() => navigate('/')} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <Activity size={28} color="#38bdf8" />
+            <Activity size={28} color="#ffffff" />
             <span className="nav-title">TeamNotFound</span>
           </div>
         </div>
 
         <div className="nav-links-center" style={{ flex: 1, maxWidth: '600px', margin: '0 20px' }}>
-          {token && location.pathname !== '/profile' && (
+          {token && location.pathname === '/products' && (
             <form onSubmit={handleSearchSubmit} className="search-bar-wrapper" style={{ margin: 0 }}>
               <input 
                 type="text" 

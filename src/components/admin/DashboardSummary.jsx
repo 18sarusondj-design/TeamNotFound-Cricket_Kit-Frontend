@@ -24,7 +24,7 @@ const DashboardSummary = () => {
   return (
     <div style={{ fontFamily: "'Inter','Segoe UI',sans-serif" }}>
       <div style={{ marginBottom: '28px' }}>
-        <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#0f172a', margin: '0 0 4px' }}>
+        <h2 style={{ fontSize: '24px', fontWeight: '800', color: '#111827', margin: '0 0 4px' }}>
           Dashboard
         </h2>
         <p style={{ margin: 0, color: '#64748b', fontSize: '14px' }}>
@@ -36,17 +36,7 @@ const DashboardSummary = () => {
         <p style={{ color: '#94a3b8' }}>Loading data...</p>
       ) : (
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '20px' }}>
-          <div style={cardStyle}>
-            <div style={iconBox('#e0e7ff', '#4f46e5')}>
-              <Users size={28} />
-            </div>
-            <div>
-              <p style={{ margin: 0, color: '#64748b', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Users</p>
-              <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#0f172a' }}>
-                {summary.usersCount}
-              </h3>
-            </div>
-          </div>
+
 
           <div style={cardStyle}>
             <div style={iconBox('#fce7f3', '#db2777')}>
@@ -54,7 +44,7 @@ const DashboardSummary = () => {
             </div>
             <div>
               <p style={{ margin: 0, color: '#64748b', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Products</p>
-              <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#0f172a' }}>
+              <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#111827' }}>
                 {summary.productsCount}
               </h3>
             </div>
@@ -66,7 +56,7 @@ const DashboardSummary = () => {
             </div>
             <div>
               <p style={{ margin: 0, color: '#64748b', fontSize: '13px', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.5px' }}>Total Orders</p>
-              <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#0f172a' }}>
+              <h3 style={{ margin: '6px 0 0', fontSize: '32px', fontWeight: '800', color: '#111827' }}>
                 {summary.ordersCount}
               </h3>
             </div>
@@ -77,7 +67,7 @@ const DashboardSummary = () => {
   );
 };
 
-const cardStyle  = { backgroundColor: 'white', padding: '28px', borderRadius: '16px', display: 'flex', alignItems: 'center', gap: '20px', boxShadow: '0 4px 12px rgba(0,0,0,0.07)', border: '1px solid #f1f5f9' };
+const cardStyle  = { backgroundColor: 'white', padding: '28px', borderRadius: '16px', display: 'flex', alignItems: 'center', gap: '20px', boxShadow: '0 4px 12px rgba(0,0,0,0.07)', border: '1px solid #e2e8f0' };
 const iconBox    = (bg, color) => ({ backgroundColor: bg, color, padding: '18px', borderRadius: '14px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 });
 
 export default DashboardSummary;

@@ -32,6 +32,10 @@ const Login = () => {
         e.preventDefault();
         navigate('/admin/login');
       }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'l') {
+        e.preventDefault();
+        navigate('/superadmin/login');
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);

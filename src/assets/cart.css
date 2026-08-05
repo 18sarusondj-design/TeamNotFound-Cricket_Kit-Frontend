@@ -15,7 +15,7 @@
 .cart-header h1 {
   font-size: 3rem;
   font-weight: 800;
-  color: #0f172a; /* Dark blue */
+  color: #111827; /* Dark text */
   margin-bottom: 10px;
 }
 
@@ -27,8 +27,8 @@
 /* Action Buttons (Back / Clear Cart) */
 .action-btn-outline {
   background: transparent;
-  border: 2px solid #ea580c;
-  color: #0d9488;
+  border: 2px solid #0066FF;
+  color: #0066FF;
   padding: 8px 20px;
   border-radius: 30px;
   font-weight: 600;
@@ -40,7 +40,7 @@
 }
 
 .action-btn-outline:hover {
-  background: #ea580c;
+  background: #0066FF;
   color: white;
 }
 
@@ -69,7 +69,7 @@
 .cart-items-header h2 {
   font-size: 1.8rem;
   font-weight: 800;
-  color: #0f172a;
+  color: #111827;
 }
 
 .premium-cart-item {
@@ -100,7 +100,7 @@
 .cart-item-details h3 {
   margin: 0 0 5px 0;
   font-size: 1.3rem;
-  color: #0f172a;
+  color: #111827;
   font-weight: 800;
 }
 
@@ -119,14 +119,14 @@
 
 .cart-item-price {
   font-size: 1.3rem;
-  color: #0f172a;
+  color: #111827;
   font-weight: 700;
 }
 
 .cart-item-total {
   font-size: 1.4rem;
   font-weight: 800;
-  color: #0d9488; /* Teal */
+  color: #0066FF; /* Electric Blue */
 }
 
 .cart-quantity-controls {
@@ -139,7 +139,7 @@
 }
 
 .qty-btn-orange {
-  background: #ea580c;
+  background: #0066FF;
   border: none;
   color: white;
   width: 28px;
@@ -153,7 +153,7 @@
 }
 
 .qty-btn-orange:disabled {
-  background: #fcd34d;
+  background: #93c5fd;
   cursor: not-allowed;
 }
 
@@ -180,19 +180,20 @@
 }
 
 .premium-summary {
-  background-color: #0f172a;
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
   border-radius: 20px;
   padding: 30px;
-  color: white;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.2);
+  color: #111827;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
 .premium-summary h2 {
   margin: 0 0 20px 0;
   font-size: 1.5rem;
   text-align: center;
-  color: white;
-  border-bottom: 1px solid rgba(255,255,255,0.2);
+  color: #111827;
+  border-bottom: 1px solid #e2e8f0;
   padding-bottom: 15px;
 }
 
@@ -200,7 +201,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 15px;
-  color: rgba(255,255,255,0.9);
+  color: #4b5563;
   font-size: 1.05rem;
 }
 
@@ -209,17 +210,17 @@
   justify-content: space-between;
   margin-top: 20px;
   padding-top: 20px;
-  border-top: 1px dashed rgba(255,255,255,0.3);
+  border-top: 1px dashed #e2e8f0;
   font-size: 1.5rem;
   font-weight: 800;
-  color: white;
+  color: #111827;
 }
 
 .checkout-btn-orange {
   width: 100%;
   margin-top: 25px;
   padding: 15px;
-  background: #ea580c;
+  background: #0066FF;
   color: white;
   border: none;
   border-radius: 30px;
@@ -235,7 +236,7 @@
 
 .checkout-btn-orange:hover {
   transform: translateY(-2px);
-  background: #c2410c;
+  background: #0052cc;
 }
 
 @media (max-width: 900px) {

@@ -4,7 +4,6 @@ import { Activity, LayoutDashboard, Users, ShoppingBag, BarChart3, User, LogOut,
 import { toast } from 'sonner';
 import api from '../api';
 import ProductManagement from '../components/admin/ProductManagement';
-import UserManagement from '../components/admin/UserManagement';
 import OrderManagement from '../components/admin/OrderManagement';
 import RevenueAnalytics from '../components/admin/RevenueAnalytics';
 import DashboardSummary from '../components/admin/DashboardSummary';
@@ -81,15 +80,13 @@ const AdminDashboard = () => {
     { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { key: 'products', label: 'Products',  icon: ShoppingBag },
     { key: 'orders',   label: 'Orders',    icon: Activity },
-    { key: 'revenue',  label: 'Analytics', icon: BarChart3 },
-    { key: 'users',    label: 'Users',     icon: Users },
+    { key: 'revenue',  label: 'Analytics', icon: BarChart3 }
   ];
 
   const renderContent = () => {
     switch (activeTab) {
       case 'dashboard': return <DashboardSummary />;
       case 'products': return <ProductManagement />;
-      case 'users': return <UserManagement />;
       case 'orders': return <OrderManagement />;
       case 'revenue': return <RevenueAnalytics />;
       default: return <DashboardSummary />;
@@ -103,7 +100,7 @@ const AdminDashboard = () => {
       <header style={styles.header}>
         {/* Logo */}
         <div style={styles.logo}>
-          <Activity size={24} color="#38bdf8" />
+          <Activity size={24} color="#0066FF" />
           <span style={styles.logoText}>TeamNotFound</span>
           <span style={styles.adminBadge}>Admin</span>
         </div>
@@ -154,24 +151,38 @@ const AdminDashboard = () => {
 
         {/* Sidebar */}
         <aside style={styles.sidebar}>
-          <p style={styles.sidebarLabel}>NAVIGATION</p>
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-            {navItems.map(({ key, label, icon: Icon }) => (
-              <button
-                key={key}
-                onClick={() => switchTab(key)}
-                style={{
-                  ...styles.navBtn,
-                  backgroundColor: activeTab === key ? '#e0f2fe' : 'transparent',
-                  color: activeTab === key ? '#0284c7' : '#475569',
-                  fontWeight: activeTab === key ? '600' : '500',
-                  borderLeft: activeTab === key ? '3px solid #0284c7' : '3px solid transparent',
-                }}
-              >
-                <Icon size={19} /> {label}
-              </button>
-            ))}
-          </nav>
+          <div style={{ flex: 1 }}>
+            <p style={styles.sidebarLabel}>NAVIGATION</p>
+            <nav style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+              {navItems.map(({ key, label, icon: Icon }) => (
+                <button
+                  key={key}
+                  onClick={() => switchTab(key)}
+                  style={{
+                    ...styles.navBtn,
+                    backgroundColor: activeTab === key ? '#eff6ff' : 'transparent',
+                    color: activeTab === key ? '#0066FF' : '#475569',
+                    fontWeight: activeTab === key ? '600' : '500',
+                    borderLeft: activeTab === key ? '3px solid #0066FF' : '3px solid transparent',
+                  }}
+                >
+                  <Icon size={19} /> {label}
+                </button>
+              ))}
+            </nav>
+          </div>
+          <div style={{ marginTop: 'auto', paddingTop: '16px', borderTop: '1px solid #e2e8f0' }}>
+            <button
+              onClick={handleLogout}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '12px', padding: '11px 14px', border: 'none', width: '100%', borderRadius: '8px', textAlign: 'left', cursor: 'pointer', fontSize: '14px', fontWeight: '500', backgroundColor: 'transparent', color: '#ef4444', transition: 'background 0.15s'
+              }}
+              onMouseEnter={e => e.currentTarget.style.background = '#fef2f2'}
+              onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+            >
+              <LogOut size={19} /> Logout
+            </button>
+          </div>
         </aside>
 
         {/* Main Content */}
@@ -213,7 +224,7 @@ const AdminDashboard = () => {
               <button
                 type="submit"
                 disabled={saving}
-                style={{ padding: '12px', background: 'linear-gradient(135deg,#0ea5e9,#6366f1)', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', fontSize: '15px', cursor: 'pointer', marginTop: '4px' }}
+                style={{ padding: '12px', background: '#0066FF', color: 'white', border: 'none', borderRadius: '8px', fontWeight: '600', fontSize: '15px', cursor: 'pointer', marginTop: '4px' }}
               >
                 {saving ? 'Saving...' : 'Save Changes'}
               </button>
@@ -228,41 +239,41 @@ const AdminDashboard = () => {
 const styles = {
   header: {
     height: '64px',
-    backgroundColor: '#0f172a',
+    backgroundColor: '#ffffff',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: '0 28px',
-    borderBottom: '1px solid rgba(255,255,255,0.06)',
+    borderBottom: '1px solid #e2e8f0',
     position: 'sticky',
     top: 0,
     zIndex: 100,
   },
   logo: { display: 'flex', alignItems: 'center', gap: '10px' },
-  logoText: { fontWeight: '800', fontSize: '18px', color: 'white', letterSpacing: '-0.3px' },
+  logoText: { fontWeight: '800', fontSize: '18px', color: '#111827', letterSpacing: '-0.3px' },
   adminBadge: {
-    backgroundColor: 'rgba(14,165,233,0.15)',
-    color: '#38bdf8',
+    backgroundColor: '#eff6ff',
+    color: '#0066FF',
     fontSize: '10px',
     fontWeight: '700',
     padding: '2px 8px',
     borderRadius: '20px',
-    border: '1px solid rgba(14,165,233,0.3)',
+    border: '1px solid rgba(0, 102, 255, 0.3)',
     letterSpacing: '0.5px',
     textTransform: 'uppercase',
   },
   profileBtn: {
     display: 'flex', alignItems: 'center', gap: '10px',
-    background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)',
+    background: 'transparent', border: '1px solid #e2e8f0',
     borderRadius: '40px', padding: '5px 14px 5px 5px', cursor: 'pointer',
     transition: 'background 0.2s',
   },
   avatarRing: {
     width: '32px', height: '32px', borderRadius: '50%',
-    background: 'linear-gradient(135deg, #0ea5e9, #6366f1)',
+    background: '#0066FF',
     display: 'flex', alignItems: 'center', justifyContent: 'center',
   },
-  adminName: { color: 'white', fontSize: '14px', fontWeight: '500' },
+  adminName: { color: '#111827', fontSize: '14px', fontWeight: '500' },
   dropdown: {
     position: 'absolute', top: '50px', right: 0,
     backgroundColor: 'white', borderRadius: '12px', minWidth: '200px',
@@ -281,6 +292,7 @@ const styles = {
   sidebar: {
     width: '230px', backgroundColor: 'white',
     borderRight: '1px solid #e2e8f0', padding: '24px 12px',
+    display: 'flex', flexDirection: 'column',
   },
   sidebarLabel: {
     fontSize: '10px', fontWeight: '700', color: '#94a3b8',
