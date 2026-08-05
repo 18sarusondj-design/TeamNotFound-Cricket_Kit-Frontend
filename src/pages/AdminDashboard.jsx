@@ -7,9 +7,10 @@ import ProductManagement from '../components/admin/ProductManagement';
 import UserManagement from '../components/admin/UserManagement';
 import OrderManagement from '../components/admin/OrderManagement';
 import RevenueAnalytics from '../components/admin/RevenueAnalytics';
+import DashboardSummary from '../components/admin/DashboardSummary';
 
 const AdminDashboard = () => {
-  const [activeTab, setActiveTab] = useState(() => localStorage.getItem('adminTab') || 'products');
+  const [activeTab, setActiveTab] = useState(() => localStorage.getItem('adminTab') || 'dashboard');
   const [profileOpen, setProfileOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [adminInfo, setAdminInfo] = useState({ fullName: '', email: '' });
@@ -77,19 +78,21 @@ const AdminDashboard = () => {
   };
 
   const navItems = [
+    { key: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { key: 'products', label: 'Products',  icon: ShoppingBag },
-    { key: 'orders',   label: 'Orders',    icon: LayoutDashboard },
+    { key: 'orders',   label: 'Orders',    icon: Activity },
     { key: 'revenue',  label: 'Analytics', icon: BarChart3 },
     { key: 'users',    label: 'Users',     icon: Users },
   ];
 
   const renderContent = () => {
     switch (activeTab) {
+      case 'dashboard': return <DashboardSummary />;
       case 'products': return <ProductManagement />;
       case 'users': return <UserManagement />;
       case 'orders': return <OrderManagement />;
       case 'revenue': return <RevenueAnalytics />;
-      default: return <ProductManagement />;
+      default: return <DashboardSummary />;
     }
   };
 

@@ -3,18 +3,14 @@ import api from '../../api';
 import { IndianRupee, ShoppingBag, CalendarRange, TrendingUp } from 'lucide-react';
 
 const FILTERS = [
-  { key: 'overall',  label: 'Overall' },
   { key: 'daily',    label: 'Today' },
-  { key: '2-days',   label: '2 Days' },
-  { key: 'monthly',  label: 'Monthly' },
-  { key: 'yearly',   label: 'Yearly' },
   { key: 'custom',   label: '📅 Custom Range' },
 ];
 
 const RevenueAnalytics = () => {
   const [analytics, setAnalytics]     = useState({ totalOrders: 0, totalRevenue: 0 });
   const [loading, setLoading]         = useState(true);
-  const [filterType, setFilterType]   = useState('overall');
+  const [filterType, setFilterType]   = useState('daily');
   const [customDates, setCustomDates] = useState({ start: '', end: '' });
   const [appliedRange, setAppliedRange] = useState('');
 
